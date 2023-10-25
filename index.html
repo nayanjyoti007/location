@@ -1,32 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Your Website</title>
-    <!-- Include the Google Maps API JavaScript library -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9jSDwr00hpL_pxHJ48gYfXWLT8-kxlJA"></script>
+    <!-- Include Bootstrap CSS and JavaScript -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <!-- Include Google Maps JavaScript API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9jSDwr00hpL_pxHJ48gYfXWLT8-kxlJA&libraries=places"></script>
 </head>
 <body>
-    <h1>Welcome to Our Website</h1>
-    
     <!-- Your website content goes here -->
 
-    <!-- JavaScript to display the alert -->
+    <!-- Bootstrap Popup -->
+    <div class="modal fade" id="locationModal" tabindex="-1" role="dialog" aria-labelledby="locationModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="locationModalLabel">Allow Location Access</h5>
+                </div>
+                <div class="modal-body">
+                    <p>We need access to your location for better services. Click the button to enable location access.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="enableLocationButton">Allow Location</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <script>
-        // Check if the browser supports Geolocation
-        if ("geolocation" in navigator) {
-            // Request the user's location
-            navigator.geolocation.getCurrentPosition(function(position) {
-                // Success: The user has allowed location access
-                // You can initialize Google Maps or perform other actions here.
-                alert("Location access granted. Enjoy a better experience with our location-based services!");
-            }, function(error) {
-                // Error: The user denied location access
-                alert("For a better experience, please turn on your device's location.");
-            });
-        } else {
-            // Geolocation is not supported in this browser
-            alert("Geolocation is not supported in your browser.");
-        }
+        // Show the Bootstrap popup when the user comes to the website
+        $(document).ready(function() {
+            $('#locationModal').modal('show');
+        });
+
+        // Enable location when the user clicks the button
+        $('#enableLocationButton').click(function() {
+            // Check if Geolocation is supported by the browser
+            if ("geolocation" in navigator) {
+                // Request the user's location
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    // You can use the user's location data (position) here
+                    console.log("Latitude: " + position.coords.latitude);
+                    console.log("Longitude: " + position.coords.longitude);
+                    
+                    // Close the Bootstrap modal
+                    $('#locationModal').modal('hide');
+                }, function(error) {
+                    // Handle any errors here
+                    console.error("Error getting location: " + error.message);
+                });
+            } else {
+                alert("Geolocation is not supported by your browser.");
+            }
+        });
     </script>
 </body>
 </html>
