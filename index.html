@@ -1,13 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Your Website</title>
+    <!-- Include Bootstrap CSS and JS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <div id="locationPopup" style="display: none;">
-        <p>We need your location to provide a better experience.</p>
-        <button id="getLocationButton">Allow Location</button>
+    <!-- Button to Trigger Location Request Popup -->
+    <button id="getLocationBtn" class="btn btn-primary">Get My Location</button>
+
+    <!-- Bootstrap Modal for Location Request -->
+    <div class="modal" id="locationModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Location Request</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>We would like to access your location. Is that okay?</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="allowLocation" class="btn btn-primary">Allow</button>
+                    <button id="cancelLocation" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <script src="your-script.js"></script>
+
+    <!-- Include Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <!-- Your JavaScript Code -->
+    <script>
+        $(document).ready(function () {
+            // Show the location request modal when the button is clicked
+            $("#getLocationBtn").click(function () {
+                $("#locationModal").modal("show");
+            });
+
+            // Handle the "Allow" button click
+            $("#allowLocation").click(function () {
+                // Check for geolocation support
+                if ("geolocation" in navigator) {
+                    // Request location
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        alert("Location allowed. Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude);
+                    });
+                } else {
+                    alert("Geolocation is not supported in your browser.");
+                }
+
+                // Close the modal
+                $("#locationModal").modal("hide");
+            });
+
+            // Handle the "Cancel" button click
+            $("#cancelLocation").click(function () {
+                alert("Location request canceled.");
+            });
+        });
+    </script>
 </body>
 </html>
