@@ -1,13 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Location Popup</title>
+    <title>Your Website</title>
+    <!-- Include the Google Maps API JavaScript library -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9jSDwr00hpL_pxHJ48gYfXWLT8-kxlJA"></script>
 </head>
 <body>
-    <div id="locationPopup" style="display: none;">
-        <p>Would you like to allow your location?</p>
-        <button id="allowLocationBtn">Allow Your Location</button>
-      </div>
-<script src="your-script.js"></script>      
+    <h1>Welcome to Our Website</h1>
+    
+    <!-- Your website content goes here -->
+
+    <!-- JavaScript to display the alert -->
+    <script>
+        // Check if the browser supports Geolocation
+        if ("geolocation" in navigator) {
+            // Request the user's location
+            navigator.geolocation.getCurrentPosition(function(position) {
+                // Success: The user has allowed location access
+                // You can initialize Google Maps or perform other actions here.
+                alert("Location access granted. Enjoy a better experience with our location-based services!");
+            }, function(error) {
+                // Error: The user denied location access
+                alert("For a better experience, please turn on your device's location.");
+            });
+        } else {
+            // Geolocation is not supported in this browser
+            alert("Geolocation is not supported in your browser.");
+        }
+    </script>
 </body>
 </html>
