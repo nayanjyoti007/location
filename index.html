@@ -4,28 +4,10 @@
     <title>Location Popup</title>
 </head>
 <body>
-    <button id="showLocation">Allow Your Location</button>
-
-    <script>
-        // Check if geolocation is supported by the browser
-        if ("geolocation" in navigator) {
-            // Function to handle location retrieval
-            function getLocation() {
-                // Prompt the user for their location
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    // Location is allowed, you can access position.coords.latitude and position.coords.longitude
-                    alert("Location Allowed. Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude);
-                }, function(error) {
-                    // Location is denied or an error occurred
-                    alert("Location Denied or an error occurred.");
-                });
-            }
-
-            // Attach the click event to the "Allow Your Location" button
-            document.getElementById("showLocation").addEventListener("click", getLocation);
-        } else {
-            alert("Geolocation is not supported in this browser.");
-        }
-    </script>
+    <div id="locationPopup" style="display: none;">
+        <p>Would you like to allow your location?</p>
+        <button id="allowLocationBtn">Allow Your Location</button>
+      </div>
+<script src="your-script.js"></script>      
 </body>
 </html>
