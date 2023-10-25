@@ -12,7 +12,7 @@ function showLocationPopup() {
         // You can replace the alert with any other functionality to use the user's location.
       },
       function (error) {
-        alert('Error getting location: ' + error.message);
+        handleLocationPermission();
       }
     );
   
